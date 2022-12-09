@@ -7,6 +7,9 @@ public class dialogHolder : MonoBehaviour
     public string dialogue;
     private DialogueManager dMan;
     public string[] dialogueLines;
+    private static HashSet<string> firstTimeSet = new HashSet<string>();
+
+    public string singleRunKey;
 
     void Start()
     {
@@ -21,7 +24,7 @@ public class dialogHolder : MonoBehaviour
 
     void OnTriggerEnter(Collider other) //OnTriggerStay was actually implemented in a tutorial I watched
     {
-        if(other.gameObject.name == "Player")
+        if(other.gameObject.name == "Player"  && firstTimeSet.Add(singleRunKey))
         {
             //dMan.ShowBox(dialogue);
 
@@ -30,8 +33,11 @@ public class dialogHolder : MonoBehaviour
                 dMan.dialogLines = dialogueLines;
                 dMan.currentLine = 0; //currentLine reset back to 0
                 dMan.ShowDialogue();
+                
+
             }
 
         }
     }
+    
 }
